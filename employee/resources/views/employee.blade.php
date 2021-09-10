@@ -38,7 +38,7 @@
       <th scope="col">Email</th>
       <th scope="col">Hobbies</th>
       <th scope="col">Gender</th>
-      <th scope="col">Joinind date</th>
+      <th scope="col">Joining date</th>
       <th scope="col">Department</th>
       <th scope="col">Action</th>
       <th scope="col"></th>
