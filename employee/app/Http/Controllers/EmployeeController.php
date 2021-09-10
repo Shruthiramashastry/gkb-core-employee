@@ -96,7 +96,7 @@ class EmployeeController extends Controller
     public function update(Request $request, employee $employee)
     {
         $res = Employee::find($request->id);
-        $file_path = public_path('assets\images\\').$res->emp_img;
+        
         $res->fname = $request->input('fname');
         $res->lname = $request->input('lname');
         $res->email = $request->input('email');
@@ -104,18 +104,22 @@ class EmployeeController extends Controller
         $res->gender = $request->input('gender');
         $res->joining_date = $request->input('joining_date');
         $res->department = $request->input('department');
-
-        $request->validate([
+        
+        if($request->emp_img)
+        {
+            $request->validate([
 
             'emp_img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
-        ]);
-
-        $imageName = time().'.'.$request->emp_img->extension();
-        $res->emp_img = $imageName;
-        //echo $file_path;die;
-        File::delete($file_path);
-        $request->emp_img->move(public_path('assets/images'), $imageName);
+            ]);
+            $file_path = public_path('assets\images\\').$res->emp_img;
+            $imageName = time().'.'.$request->emp_img->extension();
+            $res->emp_img = $imageName;
+            //echo $file_path;die;
+            File::delete($file_path);
+            $request->emp_img->move(public_path('assets/images'), $imageName);
+        }
+        
         
         $res->save();
         
