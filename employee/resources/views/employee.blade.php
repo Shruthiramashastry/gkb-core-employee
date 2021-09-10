@@ -42,6 +42,7 @@
       <th scope="col">Department</th>
       <th scope="col">Action</th>
       <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -55,6 +56,7 @@
 	      <td>{{$employee['hobbies']}}</td>
 	      <td>{{$employee['gender']}}</td>
 	      <td>{{$employee['joining_date']}}</td>
+	      <td><img src="@if($employee['emp_img']==''){{  asset('assets/images/vector.jpg')}} @else {{asset('assets/images/'.$employee['emp_img']) }}@endif" width="50" height="50"></td>
 	      <td>{{$employee['department']}}</td>
 	      <td><a href="/empEdit/{{$employee['id']}}">Edit</a></td>
 	      <td><a href="/empDel/{{$employee['id']}}">Delete</a></td>

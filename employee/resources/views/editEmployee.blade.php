@@ -45,7 +45,7 @@
 <div class="container-fluid">
   <h2>Edit employee details</h2>
   
-  <form method="post" action="/update_emp/{{$data['id']}}">
+  <form method="post" action="/update_emp/{{$data['id']}}" enctype="multipart/form-data">
     {{@csrf_field()}}
     <div class="form-group">
       <label for="fname">First Name:</label>
@@ -84,6 +84,12 @@
     <div class="form-group">
       <label for="doj">Joining date:</label>
       <input type="date" class="form-control" id="pwd" name="joining_date" value="{{$data['joining_date']}}">
+    </div>
+
+    <div class="form-group">
+      <label for="img">Employee Image:</label>
+      <img src="@if($data['emp_img']==''){{  asset('assets/images/vector.jpg')}} @else {{asset('assets/images/'.$data['emp_img']) }}@endif" width="50" height="50">
+      <input type="file" class="form-control" id="img" name="emp_img">
     </div>
 
     <div class="form-group">
