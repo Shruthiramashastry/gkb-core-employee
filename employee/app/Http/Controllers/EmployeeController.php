@@ -14,7 +14,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return view('employee');
+        
     }
 
     /**
@@ -24,7 +24,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        //echo "create employee";
+        return view('create_employee');
     }
 
     /**
@@ -35,7 +36,29 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $res = new employee();
+        $res->fname = $request->input('fname');
+        $res->lname = $request->input('lname');
+        $res->email = $request->input('email');
+        $res->hobbies = $request->input('hobbies');
+        $res->gender = $request->input('gender');
+        $res->joining_date = $request->input('joining_date');
+        $res->department = $request->input('department');
+
+        $request->validate([
+
+            'emp_img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+        ]);
+
+        $imageName = time().'.'.$request->emp_img->extension();
+        echo $imageName;die;
+        $request->image->move(public_path('assets/images'), $imageName);
+        $res->emp_img = $imageName;
+        $res->save();
+        $request->session()->flash('msg','Form submitted successfully');
+
+        return redirect('employee');
     }
 
     /**
@@ -46,7 +69,9 @@ class EmployeeController extends Controller
      */
     public function show(employee $employee)
     {
-        //
+        // $data = employee::all();
+        // return view('employee',['data' => $data]);
+        return view('employee')->with('data',employee::all());
     }
 
     /**
@@ -55,9 +80,9 @@ class EmployeeController extends Controller
      * @param  \App\employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function edit(employee $employee)
+    public function edit(employee $employee,$id)
     {
-        //
+        return view('editEmployee')->with('data',employee::find($id));
     }
 
     /**
@@ -69,7 +94,20 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, employee $employee)
     {
-        //
+        $res = Employee::find($request->id);
+        $res->fname = $request->input('fname');
+        $res->lname = $request->input('lname');
+        $res->email = $request->input('email');
+        $res->hobbies = $request->input('hobbies');
+        $res->gender = $request->input('gender');
+        $res->joining_date = $request->input('joining_date');
+        $res->department = $request->input('department');
+        $res->emp_img = '';
+        $res->save();
+        $request->session()->flash('msg','Form updated successfully');
+
+        return redirect('employee');
+
     }
 
     /**
@@ -78,8 +116,9 @@ class EmployeeController extends Controller
      * @param  \App\employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(employee $employee)
+    public function destroy(employee $employee,$id)
     {
-        //
+        Employee::destroy(array('id' => $id));
+        return redirect('employee');
     }
 }

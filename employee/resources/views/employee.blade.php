@@ -1,86 +1,71 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
+    <title>Employee</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+  .fakeimg {
+    height: 200px;
+    background: #aaa;
+  }
+  </style>
   </head>
   <body>
-    <h1>Employees Informations</h1>
-    <div>
-    	<button type="button" class="btn btn-primary"><a href="" style="color:white">Create employee</a></button>
-    </div>
-    
+
+  	<div class="jumbotron text-center" style="margin-bottom:0">
+   <h1>Employees Informations</h1>
+  <p>Employee details</p> 
+</div>
+
+   
+<div class="container-fluid">
+	<button type="button" class="btn btn-primary"><a href="{{url('createEmp')}}" style="color:white">Create employee</a></button>
+</div>
+    {{session('msg')}}
     <div class="dropdown-divider"></div>
     <div class="container-fluid">
   		<table class="table">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Hobbies</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Joinind date</th>
+      <th scope="col">Department</th>
+      <th scope="col">Action</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
+  	@foreach($data as $employee)
+  		<tr>
+	      <!-- <th scope="row">1</th> -->
+	      <td>{{$employee['id']}}</td>
+	      <td>{{$employee['fname']}}</td>
+	      <td>{{$employee['lname']}}</td>
+	      <td>{{$employee['email']}}</td>
+	      <td>{{$employee['hobbies']}}</td>
+	      <td>{{$employee['gender']}}</td>
+	      <td>{{$employee['joining_date']}}</td>
+	      <td>{{$employee['department']}}</td>
+	      <td><a href="/empEdit/{{$employee['id']}}">Edit</a></td>
+	      <td><a href="/empDel/{{$employee['id']}}">Delete</a></td>
+	    </tr>
+  	@endforeach
   </tbody>
 </table>
 	</div>
-    
+	    <div class="jumbotron text-center" style="margin-bottom:0">
+	  <p>Footer</p>
+	</div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

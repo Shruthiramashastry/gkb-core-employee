@@ -17,4 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('employee',[EmployeeController::class,'index']);
+Route::get('employee',[EmployeeController::class,'show']);
+Route::get('/createEmp',[EmployeeController::class,'create']);
+Route::post('/create_emp',[EmployeeController::class,'store']);
+Route::get('/empEdit/{id}',[EmployeeController::class,'edit']);
+Route::get('/empDel/{id}',[EmployeeController::class,'destroy']);
+Route::post('/update_emp/{id}',[EmployeeController::class,'update']);
+
